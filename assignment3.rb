@@ -14,7 +14,8 @@ class CricketTournament
                 # mp|w |d |l |p
                 # 0  1  2  3  4
 
-    @ct = { "A"=>[0, 0, 0, 0, 0],
+    @ct_result = 
+          { "A"=>[0, 0, 0, 0, 0],
             "B"=>[0, 0, 0, 0, 0],
             "C"=>[0, 0, 0, 0, 0],
             "D"=>[0, 0, 0, 0, 0]}
@@ -25,30 +26,29 @@ class CricketTournament
          @x = ls[0].split(" ")[1]
          @y = ls[1].split(" ")[1]
          @z = ls[2].delete!("\n")
-          update_scoreboard(@x,@y,@z,@ct)
+          update_scoreboard(@x,@y,@z,@ct_result)
        end
-      @ct.sort.to_h.sort_by {|_key, value| -value[4]}
+      @ct_result.sort.to_h.sort_by {|_key, value| -value[4]}
     end
 
-    def update_scoreboard(x,y,z,ct)
-      ct[x][0] = ct[x][0] + 1   # match played +1 
-      ct[y][0] = ct[y][0] + 1   # match played +1
-        case z
+    def update_scoreboard(x,y,z,ct_result)
+      ct_result[x][0] = ct_result[x][0] + 1   # match played +1 
+      ct_result[y][0] = ct_result[y][0] + 1   # match played +1
+      case z
         when "win"
-
-        ct[x][4] = ct[x][4] + 3  # x gets 4 points
-        ct[x][1] = ct[x][1] + 1  # x win  +1
-        ct[y][3] = ct[y][3] + 1  # y loss +1  
+          ct_result[x][4] = ct_result[x][4] + 3  # x gets 3 points
+          ct_result[x][1] = ct_result[x][1] + 1  # x win  +1
+          ct_result[y][3] = ct_result[y][3] + 1  # y loss +1  
         when "loss"
-        ct[y][4] = ct[y][4] + 3  # y gets 3 point
-        ct[y][1] = ct[y][1] + 1  # y win  +1
-        ct[x][3] = ct[x][3] + 1  # x loss +1
-      when "draw"
-        ct[x][4] = ct[x][4] + 1  # x gets 1 point
-        ct[y][4] = ct[y][4] + 1  # y gets 1 point
-        
-        ct[x][2] = ct[x][2] + 1  # x draw +1  
-        ct[y][2] = ct[y][2] + 1  # y draw +1
+          ct_result[y][4] = ct_result[y][4] + 3  # y gets 3 point
+          ct_result[y][1] = ct_result[y][1] + 1  # y win  +1
+          ct_result[x][3] = ct_result[x][3] + 1  # x loss +1
+        when "draw"
+          ct_result[x][4] = ct_result[x][4] + 1  # x gets 1 point
+          ct_result[y][4] = ct_result[y][4] + 1  # y gets 1 point
+          
+          ct_result[x][2] = ct_result[x][2] + 1  # x draw +1  
+          ct_result[y][2] = ct_result[y][2] + 1  # y draw +1
         end
     end
 
